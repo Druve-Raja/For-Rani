@@ -648,11 +648,15 @@ Now come here… and give me the biggest hug let me take all your troubles away 
                 fill.style.width = pct + "%";
                 if(pct >= 100){
                   reveal.classList.add("show");
-                  // mark inline-hold chapter as opened
+                  // mark inline-hold chapter as opened (no re-render)
                   if(state.opened === i){
                     state.opened = Math.min(state.opened + 1, total());
                     saveState();
-                    render();
+
+                    // update progress UI only
+                    const openedDisplay = Math.min(state.opened, total());
+                    countEl.textContent = `${openedDisplay}/${total()} opened`;
+                    fillEl.style.width = `${Math.round((openedDisplay/total())*100)}%`;
                   }
         
                   fill.style.width = "100%";
